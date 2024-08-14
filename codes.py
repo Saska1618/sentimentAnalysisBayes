@@ -1,6 +1,7 @@
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from tqdm import tqdm
+import re
 
 class sentimentAnalyzer:
     def __init__(self):
@@ -17,6 +18,21 @@ class sentimentAnalyzer:
             raise ValueError
         
         part = data.lower()
+
+        # further cleaning data, so i add the following:
+
+        # remove hyperlinks    
+        part = re.sub(r'https?://[^\s\n\r]+', '', part)
+            
+        # remove HTML markup    
+        part = re.sub(r'<\w*/?>', '', part)
+        
+        # remove hashtags sign
+        part = re.sub(r'#', '', part)
+
+        # remove multiple dots
+        part = re.sub(r'[.,]+', '.', part)
+
         toks = word_tokenize(part)
         stop_words = set(stopwords.words('english'))
 
@@ -57,15 +73,15 @@ class sentimentAnalyzer:
         if dataset is None:
             raise ValueError
         
+        corrects = 0
+        all_data = len(dataset)
+        
         for i in tqdm(range(len(dataset)), desc="Testing:"):
 
             part = dataset[i]
             
             label = part['label']
             text = part['text']
-
-            corrects = 0
-            all_data = len(dataset)
 
             p, n = self.analyze(text)
 
