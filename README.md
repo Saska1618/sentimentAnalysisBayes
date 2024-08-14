@@ -9,5 +9,5 @@ The main idea is that i want to calculate P(positive|"Specific text with positiv
 I am using the imdb dataset from Huggingface: [stanfordnlp/imdb](https://huggingface.co/datasets/stanfordnlp/imdb)
 
 Note1:
-    this approach on its own was not too successfull, i achiaved 64% accuracy on 2 classes (positive or negative)
+    this approach on its own was not too successful, I achiaved 64% accuracy on 2 classes (positive or negative)
     To further enhance this model i am planning on introducing connection between words and impact, not just polarity
